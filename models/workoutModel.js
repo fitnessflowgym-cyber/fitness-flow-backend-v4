@@ -77,6 +77,7 @@ export const saveWorkoutSession = async (
   endTime,
   duration,
   totalVolume,
+  programName,
   logs
 ) => {
   const client = await pool.connect();
@@ -85,9 +86,9 @@ export const saveWorkoutSession = async (
 
     // บันทึกลงตาราง workouts
     const workoutRes = await client.query(
-      `INSERT INTO workouts (user_id, start_time, end_time, duration_seconds, total_volume) 
-       VALUES ($1, $2, $3, $4, $5) RETURNING id`,
-      [userId, startTime, endTime, duration, totalVolume]
+      `INSERT INTO workouts (user_id, start_time, end_time, duration_seconds, total_volume, program_name)
+       VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
+      [userId, startTime, endTime, duration, totalVolume, programName || null]
     );
     const workoutId = workoutRes.rows[0].id;
 

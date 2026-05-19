@@ -68,7 +68,7 @@ export const getWorkouts = async (req, res) => {
 // 1. บันทึกข้อมูลการออกกำลังกายแบบครบชุด (Workouts + Logs)
 export const saveFullWorkout = async (req, res) => {
   try {
-    const { userId, startTime, endTime, duration, totalVolume, logs } =
+    const { userId, startTime, endTime, duration, totalVolume, programName, logs } =
       req.body;
 
     if (!userId || !logs || logs.length === 0) {
@@ -81,6 +81,7 @@ export const saveFullWorkout = async (req, res) => {
       endTime,
       duration,
       totalVolume,
+      programName || null,
       logs
     );
 
